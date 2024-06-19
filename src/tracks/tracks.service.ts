@@ -318,6 +318,7 @@ export class TracksService {
       return this.prisma.track.findUnique({
         where: { id: id },
         include: {
+          author: true,
           reviewers: {
             where: {
               id: -1,
@@ -356,6 +357,7 @@ export class TracksService {
         return this.prisma.track.findUnique({
           where: { id: id },
           include: {
+            author: true,
             reviewers: {
               include: {
                 labelMember: {

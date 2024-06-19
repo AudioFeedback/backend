@@ -1,11 +1,12 @@
 import { Prisma } from "@prisma/client";
 import { Request } from "express";
-import { GetTrackVersionDeepDto } from "./get-trackversion.deep.dto";
-import { GetUserDto } from "src/users/dto/get-user.dto";
 import { GetUserWithLabelMemberDto } from "src/users/dto/get-user-with-labelmember.dto";
+import { GetUserDto } from "src/users/dto/get-user.dto";
+import { GetTrackVersionDeepDto } from "./get-trackversion.deep.dto";
 
 const trackDeep = Prisma.validator<Prisma.TrackDefaultArgs>()({
   include: {
+    author: true,
     reviewers: {
       include: {
         labelMember: true,
@@ -29,6 +30,7 @@ export class GetTrackDeepDto {
   id: number;
   title: string;
   genre: string;
+  author: GetUserDto;
   trackversions: GetTrackVersionDeepDto[];
   reviewers: GetUserDto[];
 
@@ -36,6 +38,7 @@ export class GetTrackDeepDto {
     this.id = track.id;
     this.title = track.title;
     this.genre = track.genre;
+    this.author = new GetUserDto(track.author);
     this.trackversions = track.trackVersions.map(
       (x) => new GetTrackVersionDeepDto(x, req),
     );
