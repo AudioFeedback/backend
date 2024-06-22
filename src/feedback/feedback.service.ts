@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { TrackVersion, User } from "@prisma/client";
 import { PrismaService } from "src/prisma.service";
 import { CreateFeedbackDto } from "./dto/create-feedback.dto";
-import { TrackVersion, User } from "@prisma/client";
 import { UpdateFeedbackDto } from "./dto/update-feedback.dto";
 
 @Injectable()
@@ -131,6 +131,7 @@ export class FeedbackService {
       },
       data: {
         isPublished: true,
+        updatedAt: new Date(),
       },
     });
   }
