@@ -16,6 +16,7 @@ export class GetFeedbackWithUserDto {
   rating: boolean;
   comment: string;
   timestamp: number;
+  isPublished: boolean;
   user: GetUserDto;
 
   constructor(feedback: FeedbackWithUser) {
@@ -25,6 +26,7 @@ export class GetFeedbackWithUserDto {
     this.rating = feedback.rating;
     this.comment = feedback.comment;
     this.timestamp = feedback.timestamp;
+    this.isPublished = feedback.isPublished;
     this.user = new GetUserDto(feedback.user);
   }
 }
